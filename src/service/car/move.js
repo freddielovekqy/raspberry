@@ -1,4 +1,4 @@
-var GPIO = require("rpio2");
+var GPIO = require("rpio2").Gpio;
 
 var frontLeftGPIO1 = new GPIO(16);
 var frontLeftGPIO2 = new GPIO(18);
@@ -17,9 +17,12 @@ function go() {
 function stop() {
     frontLeftGPIO1.open(GPIO.OUTPUT, GPIO.LOW);
     frontLeftGPIO2.open(GPIO.OUTPUT, GPIO.LOW);
-
+    frontLeftGPIO1.close();
+    frontLeftGPIO2.close();
     frontRightGPIO1.open(GPIO.OUTPUT, GPIO.LOW);
     frontRightGPIO2.open(GPIO.OUTPUT, GPIO.LOW);
+    frontRightGPIO1.close();
+    frontRightGPIO2.close();
 }
 
 function back() {
