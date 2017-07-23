@@ -1,13 +1,18 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+
 
 var users = require('./src/routes/UsersController');
 var weather = require('./src/routes/WeatherController');
+var move = require('./src/service/car/move.js');
 
 app.use(express.static(path.join(__dirname, 'webapp')));
-app.listen(8099, () => {
-    console.log(`App listening at port 8090`)
+
+server.listen(8099, function () {
+  console.log('Server listening at port 8099');
 });
 
 // 处理get请求
@@ -33,3 +38,25 @@ app.delete('/api/*', function (req, res, next) {
 
 app.use('/api/users', users);
 app.use('/api/weather', weather);
+
+io.on('connection', function (socket) {
+    socket.on('init', data => {
+        console.log('init socket', data.type);
+    });
+
+    socket.on('go', data => {
+        console.log('go.....');
+        move.go();
+    });
+
+    socket.on('stop', data => {
+        console.log('stop.....');
+        move.go();
+    });
+
+    socket.on('back', data => {
+        console.log('back.....');
+        move.back();
+    });
+
+});
