@@ -19,8 +19,13 @@ function go() {
 }
 
 function stop() {
-    enableA.open(GPIO.OUTPUT, GPIO.LOW);
-    enableB.open(GPIO.OUTPUT, GPIO.LOW);
+    enableA.open(GPIO.OUTPUT, GPIO.HIGH);
+    frontLeftGPIO1.open(GPIO.OUTPUT, GPIO.LOW);
+    frontLeftGPIO2.open(GPIO.OUTPUT, GPIO.LOW);
+
+    enableB.open(GPIO.OUTPUT, GPIO.HIGH);
+    frontRightGPIO1.open(GPIO.OUTPUT, GPIO.LOW);
+    frontRightGPIO2.open(GPIO.OUTPUT, GPIO.LOW);
 }
 
 function back() {
