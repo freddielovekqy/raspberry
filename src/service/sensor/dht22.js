@@ -2,7 +2,7 @@ var execSync = require('child_process').execSync;
 
 var sensor = {
     getCurrent: function() {
-        var result = execSync('./sensor_scripts/current.py').toString().split('\n');
+        var result = execSync('/usr/src/dht22/current.py').toString().split('\n');
         if(result[0] === 'error') {
             return {
                 success: false,

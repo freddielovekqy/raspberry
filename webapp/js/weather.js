@@ -1,12 +1,10 @@
 (function () {
-
     function getCurrentOutsideInfo() {
         $.ajax({
             url: '/api/weather/outside',
             type: 'GET',
             success: data => {
                 console.log(data);
-
                 if (data) {
                     var weatherData = JSON.parse(data).results[0].now;
 
@@ -25,12 +23,26 @@
         });
     }
 
-    function getCurrentInsideInfo() {
+function getCurrentInsideInfo() {
         $.ajax({
             url: '/api/weather/current/inside',
             type: 'GET',
             success: data => {
                 console.log('current/inside', data);
+
+                if (data) {
+                    var weatherData = JSON.parse(data);
+
+                    if (weatherData.temperature) {
+                        $('#insideTemperatureText').text(weatherData.temperature + '°');
+                    }
+                    
+                    if (weatherData.humidity) {
+                        $('#insideHumidityText').text(weatherData.humidity + '%');
+                    } else {
+                        $('#insideHumidityText').text('暂无数据');
+                    }
+                }
             }
         });
     }
