@@ -1,34 +1,36 @@
 (function () {
-    function getCurrentOutsideInfo() {
+    function getCurrentOutsideInfoJisuAPI() {
         $.ajax({
-            url: '/api/weather/outside',
+            url: 'http://api.jisuapi.com/weather/query?appkey=cc109de04844426c&cityid=220',
             type: 'GET',
-            success: data => {
+            dataType: 'jsonp',
+            jsonp: 'callback',
+            success: function (data) {
                 console.log(data);
                 if (data) {
-                    var weatherData = JSON.parse(data).results[0].now;
+                    var weatherData = data.result;
 
-                    if (weatherData.temperature) {
-                        $('#outsideTemperatureText').text(weatherData.temperature + '°');
+                    if (weatherData.temp) {
+                        $('#outsideTemperatureText').text(weatherData.temp + '°');
                     }
-                    
+
                     if (weatherData.humidity) {
-                        $('#outsideHumidityText').text(weatherData.temperature + '%');
+                        $('#outsideHumidityText').text(weatherData.humidity + '%');
                     } else {
                         $('#outsideHumidityText').text('暂无数据');
                     }
                 }
-                
-            }
+            },
+            error: function (err) { alert(err) }
         });
     }
 
-function getCurrentInsideInfo() {
+    function getCurrentInsideInfo() {
         $.ajax({
             url: '/api/weather/current/inside',
             type: 'GET',
             success: data => {
-                console.log('current/inside', data);
+                // console.log('current/inside', data);
 
                 if (data) {
                     var weatherData = JSON.parse(data);
@@ -36,7 +38,7 @@ function getCurrentInsideInfo() {
                     if (weatherData.temperature) {
                         $('#insideTemperatureText').text(weatherData.temperature + '°');
                     }
-                    
+
                     if (weatherData.humidity) {
                         $('#insideHumidityText').text(weatherData.humidity + '%');
                     } else {
@@ -47,6 +49,6 @@ function getCurrentInsideInfo() {
         });
     }
 
-    getCurrentOutsideInfo();
     getCurrentInsideInfo();
+    getCurrentOutsideInfoJisuAPI();
 })();

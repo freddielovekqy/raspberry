@@ -58,10 +58,10 @@
                 color: '#006dc0'
             }, {
                 gt: 20,
-                lte: 27,
+                lte: 28,
                 color: '#096'
             }, {
-                gt: 27,
+                gt: 28,
                 lte: 35,
                 color: '#e38816'
             }, {
@@ -84,7 +84,7 @@
                     data: [{
                         yAxis: 20
                     }, {
-                        yAxis: 27
+                        yAxis: 28
                     }]
                 }
             }, {
@@ -98,7 +98,7 @@
                     data: [{
                         yAxis: 20
                     }, {
-                        yAxis: 27
+                        yAxis: 28
                     }]
                 }
             }
