@@ -51,4 +51,12 @@
 
     getCurrentInsideInfo();
     getCurrentOutsideInfoJisuAPI();
+
+    $('#refreshInside').on('click', event => {
+        getCurrentInsideInfo();
+    });
+
+    $('#refreshOutside').on('click', event => {
+        getCurrentOutsideInfoJisuAPI();
+    });
 })();

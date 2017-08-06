@@ -4,6 +4,7 @@ const app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
+var scheduleTask = require('./src/schedule/ScheduleTask');
 
 var users = require('./src/routes/UsersController');
 var weather = require('./src/routes/WeatherController');
@@ -14,6 +15,8 @@ app.use(express.static(path.join(__dirname, 'webapp')));
 server.listen(8099, function () {
   console.log('Server listening at port 8099');
 });
+
+scheduleTask.initScheduleTasks();
 
 // 处理get请求
 app.get('/api/*', function (req, res, next) {

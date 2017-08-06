@@ -96,7 +96,8 @@ function getCurrentOutside() {
 
 function getCurrentInside() {
     return new Promise((resolve, reject) => {
-        resolve(dht22.getCurrent());
+        // resolve(dht22.getCurrent());
+        resolve({});
     });
 }
 
