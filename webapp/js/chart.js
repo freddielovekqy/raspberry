@@ -1,18 +1,29 @@
 (function () {
     var data = [
         ["2017-08-03 08:00", 10, 2],
-        ["2017-08-03 08:30", 5, -2],
         ["2017-08-03 09:00", 3, -10],
-        ["2017-08-03 09:30", 15, 26],
 
         ["2017-08-03 10:00", 27, 35],
-        ["2017-08-03 10:30", 28, 38],
         ["2017-08-03 11:00", 27, 39],
-        ["2017-08-03 11:30", 28, 39],
-        ["2017-08-03 12:00", 27, 39],
-        ["2017-08-03 12:30", 28, 40]
+        ["2017-08-03 12:00", 27, 39]
     ];
     initChart(data);
+
+    $.ajax({
+        url: '/api/weather/outside',
+        type: 'GET',
+        success: function (data) {
+            console.log('get outside weathers', data.length);
+        }
+    });
+
+    $.ajax({
+        url: '',
+        type: 'GET',
+        success: data => {
+            console.log('get inside weathers', data.length);
+        }
+    });
 
 
     function initChart(data) {

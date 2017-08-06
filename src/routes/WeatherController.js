@@ -14,6 +14,18 @@ router.get('/outside', function (request, response, next) {
     });
 });
 
+router.get('inside', (request, response, next) => {
+    var promise = weatherService.getInsideWeathers();
+
+    promise.then(data => {
+        response.send(JSON.stringify(data));
+    }, data => {
+        response.send(JSON.stringify(data));
+    }).catch(data => {
+        response.send(JSON.stringify(data));
+    });
+})
+
 router.get('/current/inside', (request, response, next) => {
     var promise = weatherService.getCurrentInside();
 

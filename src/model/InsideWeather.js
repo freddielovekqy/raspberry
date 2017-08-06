@@ -1,10 +1,10 @@
 var mongoose = require('../dao/db');
 var Schema = mongoose.Schema;
 
-var InsideSchema = new Schema({
+var InsideWeatherSchema = new Schema({
     createDate: { type: Number, default: new Date().getTime() },
     temperature: { type: Number },
     humidity: { type: Number }
 });
 
-module.exports.Inside = mongoose.model('Inside', InsideSchema);
+module.exports.InsideWeather = mongoose.model('InsideWeather', InsideWeatherSchema);

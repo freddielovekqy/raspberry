@@ -3,6 +3,7 @@ var dht22 = require('./sensor/dht22');
 var http = require('http');
 
 var outsideWeatherDao = require('../dao/OutsideWeatherDao');
+var insideWeatherDao = require('../dao/InsideWeatherDao');
 
 const SUZHOU_CITY_ID_FOR_WEATHER_API = 220;
 const WEATHER_API_KEY_CODE = 'cc109de04844426c';
@@ -40,6 +41,18 @@ function getOutsideWeathers() {
     });
 }
 
+function getInsideWeathers() {
+    return new Promise((resolve, reject) => {
+        insideWeatherDao.getWeathers()
+            .then(data => {
+                resolve(data);
+            })
+            .catch(error => {
+                reject(error);
+            })
+    });
+}
+
 function saveCurrentOutsideWeather() {
     return new Promise((resolve, reject) => {
         getCurrentOutside()
@@ -52,6 +65,18 @@ function saveCurrentOutsideWeather() {
             })
             .catch(error => {
                 reject(error);
+            });
+    });
+}
+
+function saveCurrentInsideWeather() {
+    return new Promise((resolve, reject) => {
+        getCurrentInside()
+            .then(data => {
+                insideWeatherDao.save({
+                    temperature: parseFloat(data.temperature),
+                    humidity: parseFloat(data.humidity)
+                });
             });
     });
 }
@@ -100,7 +125,9 @@ function getCurrentInside() {
     });
 }
 
-module.exports.getOutsideWeathers = getOutsideWeathers;
 module.exports.getCurrentInside = getCurrentInside;
+module.exports.getInsideWeathers = getInsideWeathers;
+module.exports.getOutsideWeathers = getOutsideWeathers;
+module.exports.saveCurrentInsideWeather = saveCurrentInsideWeather;
 module.exports.saveCurrentOutsideWeather = saveCurrentOutsideWeather;
 
