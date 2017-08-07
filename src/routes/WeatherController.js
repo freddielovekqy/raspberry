@@ -26,6 +26,18 @@ router.get('inside', (request, response, next) => {
     });
 })
 
+router.get('/current/outside', (request, response, next) => {
+    var promise = weatherService.getCurrentOutside();
+
+    promise.then(data => {
+        response.json(data);
+    }, data => {
+        response.json(data);
+    }).catch(data => {
+        response.json(data);
+    });
+});
+
 router.get('/current/inside', (request, response, next) => {
     var promise = weatherService.getCurrentInside();
 

@@ -25,6 +25,29 @@
         });
     }
 
+    function getCurrentOutsideInfoFromDB() {
+        $.ajax({
+            url: '/api/weather/current/outside',
+            type: 'GET',
+            success: function (data) {
+                console.log(data);
+                if (data) {
+
+                    var weatherData = (typeof data === 'string') ? JSON.parse(data) : data;
+                    if (weatherData.humidity) {
+                        $('#outsideHumidityText').text(weatherData.humidity + '%');
+                    } else {
+                        $('#outsideHumidityText').text('暂无数据');
+                    }
+
+                    var temperature = weatherData.temperature || weatherData.temp || 0;
+                    $('#outsideTemperatureText').text(temperature + '°');
+                }
+            },
+            error: function (err) { alert(err) }
+        });
+    }
+
     function getCurrentInsideInfo() {
         $.ajax({
             url: '/api/weather/current/inside',
@@ -50,7 +73,7 @@
     }
 
     getCurrentInsideInfo();
-    getCurrentOutsideInfoJisuAPI();
+    getCurrentOutsideInfoFromDB();
 
     $('#refreshInside').on('click', event => {
         getCurrentInsideInfo();

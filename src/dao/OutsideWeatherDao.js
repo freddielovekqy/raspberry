@@ -26,5 +26,10 @@ function getWeathers() {
     return OutsideWeather.find().skip(0).limit(2000).sort({createDate: 1}).exec();
 }
 
+function getCurrentWeather() {
+    return OutsideWeather.find().skip(0).limit(1).sort({createDate: 1}).exec();
+}
+
 module.exports.save = save;
 module.exports.getWeathers = getWeathers;
+module.exports.getCurrentWeather = getCurrentWeather;

@@ -1,12 +1,12 @@
 var Api = require('./seniverse/api');
 var dht22 = require('./sensor/dht22');
-var http = require('http');
 
 var outsideWeatherDao = require('../dao/OutsideWeatherDao');
 var insideWeatherDao = require('../dao/InsideWeatherDao');
 
-const SUZHOU_CITY_ID_FOR_WEATHER_API = 220;
-const WEATHER_API_KEY_CODE = 'cc109de04844426c';
+var jisuWeatherAPI = require('./thirdAPI/JisuWeather');
+
+const CURRENT_OUTSIDE_WEATHER_TIME_INTERVAL = 30 * 60 * 1000;
 
 /**
  * 当前服务废弃
@@ -55,7 +55,7 @@ function getInsideWeathers() {
 
 function saveCurrentOutsideWeather() {
     return new Promise((resolve, reject) => {
-        getCurrentOutside()
+        jisuWeatherAPI.getCurrentOutsideWeather()
             .then(data => {
                 var weatherData = data.result;
                 delete weatherData.daily;
@@ -81,40 +81,25 @@ function saveCurrentInsideWeather() {
     });
 }
 
-/**
- * 获取极速数据API的天气数据
- */
 function getCurrentOutside() {
     return new Promise((resolve, reject) => {
-        var url = `http://api.jisuapi.com/weather/query?appkey=${WEATHER_API_KEY_CODE}&cityid=${SUZHOU_CITY_ID_FOR_WEATHER_API}`;
-        http.get(url, (response) => {
-            const { statusCode } = response;
-            const contentType = response.headers['content-type'];
-
-            let error;
-            if (statusCode !== 200) {
-                error = new Error('请求失败。\n' + `状态码: ${statusCode}`);
-            }
-            if (error) {
-                console.error(error.message);
-                // 消耗响应数据以释放内存
-                response.resume();
-                return;
-            }
-
-            response.setEncoding('utf8');
-            let rawData = '';
-            response.on('data', (chunk) => { rawData += chunk; });
-            response.on('end', () => {
-                try {
-                    resolve(JSON.parse(rawData));
-                } catch (e) {
-                    reject(e.message);
+        outsideWeatherDao.getCurrentWeather()
+            .then(data => {
+                if (data && data.length === 1) {
+                    if (new Date().getTime() - data[0].createDate <= CURRENT_OUTSIDE_WEATHER_TIME_INTERVAL) {
+                        resolve(data[0]);
+                    } else {
+                        return jisuWeatherAPI.getCurrentOutsideWeather();
+                    }   
+                } else {
+                    return jisuWeatherAPI.getCurrentOutsideWeather();
+                }
+            })
+            .then(data => {
+                if (data && data.result) {
+                    resolve(data.result);
                 }
             });
-        }).on('error', (e) => {
-            reject(e.message);
-        });
     });
 
 }
@@ -126,6 +111,7 @@ function getCurrentInside() {
 }
 
 module.exports.getCurrentInside = getCurrentInside;
+module.exports.getCurrentOutside = getCurrentOutside;
 module.exports.getInsideWeathers = getInsideWeathers;
 module.exports.getOutsideWeathers = getOutsideWeathers;
 module.exports.saveCurrentInsideWeather = saveCurrentInsideWeather;
