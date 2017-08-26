@@ -1,87 +1,12 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
-    <meta charset="UTF-8">
-    <title>树莓派</title>
+  <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="stylesheet" href="./framework/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="./framework/font-awesome/4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="./css/index.css">
-    <base href="/">
-    <body>
-        <header class="header">
-            <div class="container">
-                <div class="header-web-topic">
-                    <img src="./images/raspberry-pi.png" alt="">
-                    <img src="./images/header-text.png" alt="">
-                </div>
-                <div id="headerItems" class="header-items">
-                </div>
-            </div>
-        </header>
-        <div class="content-div container">
-            <div class="current-info">
-                <div class="current-inside-info">
-                    <div class="info-div">
-                        <span class="fa fa-home"></span>
-                        <div class="info">
-                            <div class="temperature">
-                                <span id="insideTemperatureText" class="temperature-text">0°</span>
-                            </div>
-                            <div class="humidity">
-                                <span>湿度：</span>
-                                <span id="insideHumidityText" class="humidity-text">43%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="div-info">
-                        <span>当前室内</span>
-                        <span id="refreshInside" class="fa fa-refresh"></span>
-                    </div>
-                </div>
-
-                <div class="current-outside-info">
-                    <div class="info-div">
-                        <span class="fa fa-tree"></span>
-                        <div class="info">
-                            <div class="temperature">
-                                <span id="outsideTemperatureText" class="temperature-text">0°</span>
-                            </div>
-                            <div class="humidity">
-                                <span>湿度：</span>
-                                <span id="outsideHumidityText" class="humidity-text">43%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="div-info">
-                        <span>当前室外</span>
-                        <span id="refreshOutside" class="fa fa-refresh"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="chart-div">
-                <div id="templateChart" class="template-chart"></div>
-            </div>
-
-            
-
-            <!-- <div class="car-div">
-                <button type="button" id="go" class="btn btn-info go">前进</button>
-                <button type="button" id="stop" class="btn btn-info stop">停止</button>
-                <button type="button" id="back" class="btn btn-info back">后退</button>
-            </div> -->
-        </div>
-        
-    </body>
-    <script src="/framework/jquery-2.1.4.min.js"></script>
-    <script src="/framework/echarts.js"></script>
-    <script src="/js/utils/date.js"></script>
-    <script src="/js/weather.js"></script>
-    <script src="socket.io/socket.io.js"></script>
-    <script src="/js/car.js"></script>
-    <script src="/js/chart.js"></script>
-    <!-- <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
-    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
-    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
-    <script src="./js/app.js" type="text/jsx"></script> -->
+    <title>树莓派</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
 </html>

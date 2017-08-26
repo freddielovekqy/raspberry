@@ -43,8 +43,10 @@ app.use('/api/users', users);
 app.use('/api/weather', weather);
 
 io.on('connection', function (socket) {
+    console.log('connection....');
     socket.on('init', data => {
         console.log('init socket', data.type);
+        io.emit('customEmit', '22222222222');
     });
 
     socket.on('go', data => {
