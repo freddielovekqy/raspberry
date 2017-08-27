@@ -132,4 +132,14 @@ export default {
         margin-top: 20px;
     }
 }
+
+@media screen and (max-width: 800px) {
+    .chart-div {
+        .template-chart {
+            width: 100%;
+            height: 300px;
+            margin-top: 20px;
+        }
+    }
+}
 </style>
