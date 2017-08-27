@@ -103,6 +103,15 @@ function getCurrentInsideInfo() {
     });
 }
 
+function setWeatherInfo() {
+    var _this = this;
+    if (_this.location === 'inside') {
+        getCurrentInsideInfo.call(_this);
+    } else if (_this.location === 'outside') {
+        getCurrentOutsideInfoFromDB.call(_this);
+    }
+}
+
 export default {
     props: {
         location: String
@@ -127,22 +136,12 @@ export default {
     },
     methods: {
         refreshWeather: function() {
-            if (this.location === 'inside') {
-                getCurrentInsideInfo.call(this);
-            } else if (this.location === 'outside') {
-                getCurrentOutsideInfoJisuAPI.call(this);
-            }
-            this.$socket.emit('init', '111111');
-
+            setWeatherInfo.call(this);
+            // this.$socket.emit('init', '111111');
         }
     },
     created: function() {
-        console.log(this.location);
-        if (this.location === 'inside') {
-            getCurrentInsideInfo.call(this);
-        } else if (this.location === 'outside') {
-            getCurrentOutsideInfoFromDB.call(this);
-        }
+        setWeatherInfo.call(this);
     }
 }
 </script>

@@ -60,7 +60,6 @@ function saveCurrentOutsideWeather() {
                 var weatherData = data.result;
                 delete weatherData.daily;
                 delete weatherData.hourly;
-                delete weatherData.daily;
                 outsideWeatherDao.save(weatherData);
             })
             .catch(error => {

@@ -4,11 +4,13 @@
             <current-weather-sim-info location="inside"></current-weather-sim-info>
             <current-weather-sim-info location="outside"></current-weather-sim-info>
         </div>
+        <weather-chart></weather-chart>
     </div>
 </template>
 
 <script>
 import CurrentWeatherSimInfo from '@/components/weather/CurrentWeatherSimInfo'
+import WeatherChart from '@/components/weather/WeatherChart'
 
 export default {
     data () {
@@ -17,7 +19,8 @@ export default {
         }
     },
     components: {
-        CurrentWeatherSimInfo
+        CurrentWeatherSimInfo,
+        WeatherChart
     }
 }
 </script>
